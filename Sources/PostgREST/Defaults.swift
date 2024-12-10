@@ -20,6 +20,7 @@ extension PostgrestClient.Configuration {
   /// The default `JSONDecoder` instance for ``PostgrestClient`` responses.
   public static let jsonDecoder = { () -> JSONDecoder in
     let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
     decoder.dateDecodingStrategy = .custom { decoder in
       let container = try decoder.singleValueContainer()
       let string = try container.decode(String.self)
@@ -40,6 +41,7 @@ extension PostgrestClient.Configuration {
   /// The default `JSONEncoder` instance for ``PostgrestClient`` requests.
   public static let jsonEncoder = { () -> JSONEncoder in
     let encoder = JSONEncoder()
+    encoder.keyEncodingStrategy = .convertToSnakeCase
     encoder.dateEncodingStrategy = .iso8601
     return encoder
   }()
